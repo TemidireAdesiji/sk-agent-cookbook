@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sk-agent-cookbook"
+version = "0.1.0"
+description = "Production-tested Semantic Kernel agent patterns for Python"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+keywords = ["semantic-kernel", "azure-openai", "agents", "ai", "python"]
+dependencies = [
+    "semantic-kernel==1.42.0",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+search = [
+    "azure-search-documents>=11.4",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+[tool.setuptools]
+packages = ["sk_cookbook"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+# Patterns favour readability; the SK surface is large and partially untyped,
+# so we keep strictness high on our own code but do not chase SK internals.
+disallow_untyped_defs = true
+warn_unused_ignores = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["patterns", "tests"]
+addopts = "--cov=sk_cookbook --cov-report=term-missing"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    # Semantic Kernel's own pydantic usage emits this on import; not our code.
+    "ignore::pydantic.PydanticDeprecatedSince211",
+]
