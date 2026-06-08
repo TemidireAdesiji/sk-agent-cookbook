@@ -10,7 +10,7 @@ validate the returned text, because a model can return malformed or incomplete J
 """
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Generic, TypeVar
 
 from pydantic import BaseModel, ValidationError
@@ -22,7 +22,7 @@ from semantic_kernel.functions import KernelArguments
 TModel = TypeVar("TModel", bound=BaseModel)
 
 
-class Priority(str, Enum):
+class Priority(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"

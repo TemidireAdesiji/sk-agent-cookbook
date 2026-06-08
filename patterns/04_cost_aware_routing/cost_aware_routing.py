@@ -12,13 +12,13 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 
 from semantic_kernel.agents import ChatCompletionAgent
 from semantic_kernel.connectors.ai.chat_completion_client_base import ChatCompletionClientBase
 
 
-class Tier(str, Enum):
+class Tier(StrEnum):
     CHEAP = "cheap"
     CAPABLE = "capable"
 
